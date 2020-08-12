@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.inf.hu3diger</groupId>
-	<artifactId>main</artifactId>
+	<artifactId>api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gb-api</name>
 	<description>Google Books API proj</description>
