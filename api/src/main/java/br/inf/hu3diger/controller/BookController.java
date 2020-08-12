@@ -1,5 +1,7 @@
 package br.inf.hu3diger.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.inf.hu3diger.model.Book;
+import br.inf.hu3diger.service.BookService;
 
 @RestController
 @RequestMapping("/api/v1/book")
@@ -15,12 +18,9 @@ import br.inf.hu3diger.model.Book;
 public class BookController {
 	
 	@GetMapping()
-	public Book search(@RequestParam(value = "search", defaultValue = "peaky blinders") String name) {
-		String title = String.format("We will search a book about %s!", name);
-		Book book = new Book();
-		book.setTitle(title);
-		
-		return book;
+	public List<Book> search(@RequestParam(value = "search", defaultValue = "peaky blinders") String param) {
+		List<Book> listSearchedBooks = BookService.search(param);
+		return listSearchedBooks;
 	}
 	
 	@GetMapping("/all")

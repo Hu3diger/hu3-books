@@ -4,39 +4,32 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Accessors(chain = true)
-@Table(name="books")
+@Table(name="bookImages")
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonRootName(value = "items")
-public class Book {
+public class BookImageLinks {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long _id;
+    private int id;
 	
-	@JsonProperty("id")
-	private String bookId;
+	@JsonProperty("thumbnail")
+	private String thumbImage;
 	
-	@JsonProperty("volumeInfo")
-	@OneToOne
-	private BookInformation informations;
-	
+	@JsonProperty("smallThumbnail")
+	private String smallImage;
 }

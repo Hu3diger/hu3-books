@@ -9,34 +9,38 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Accessors(chain = true)
-@Table(name="books")
+@Table(name="bookInformations")
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonRootName(value = "items")
-public class Book {
+public class BookInformation {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long _id;
+    private int id;
 	
-	@JsonProperty("id")
-	private String bookId;
+	@JsonProperty("title")
+	private String title;
 	
-	@JsonProperty("volumeInfo")
+	@JsonProperty("description")
+	private String description;
+	
+	@JsonProperty("imageLinks")
 	@OneToOne
-	private BookInformation informations;
+	private BookImageLinks images;
+	
+	@JsonProperty("infoLink")
+	private String bookUrl;
+	
+	private Integer flagFav = 0;
 	
 }
