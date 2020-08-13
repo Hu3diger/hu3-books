@@ -10,8 +10,8 @@ export class ApiService {
 
   constructor(private http: HttpClient ) { }
 
-  public search(arg: String): Observable<Book> {
-    return this.http.get<Book>(this.SERVER_URL + "/book?search=" + arg);
+  public search(arg: String): Observable<Book[]> {
+    return this.http.get<Book[]>(this.SERVER_URL + "/book?search=" + arg);
   } 
   
 }

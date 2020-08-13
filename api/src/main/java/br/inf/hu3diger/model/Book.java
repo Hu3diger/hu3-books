@@ -1,9 +1,12 @@
 package br.inf.hu3diger.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -15,17 +18,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Accessors(chain = true)
 @Table(name="books")
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonRootName(value = "items")
 public class Book {
 	
 	@Id
@@ -38,5 +38,19 @@ public class Book {
 	@JsonProperty("volumeInfo")
 	@OneToOne
 	private BookInformation informations;
+	
+	
+	@Getter
+	@Setter
+	@NoArgsConstructor
+	@AllArgsConstructor
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	@JsonRootName(value = "items")
+	public static class BookModel{
+		
+		@OneToMany
+		@JsonProperty("items")
+		private List<Book> books;
+	}
 	
 }
