@@ -13,5 +13,9 @@ export class ApiService {
   public search(arg: String): Observable<Book[]> {
     return this.http.get<Book[]>(this.SERVER_URL + "/book?search=" + arg);
   }
+
+  public favor(arg: Book): Observable<Book> {
+    return this.http.post<Book>(this.SERVER_URL + "/book/favor", arg);
+  }
   
 }

@@ -18,6 +18,8 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 import br.inf.hu3diger.model.Book;
 import br.inf.hu3diger.model.Book.BookModel;
+import br.inf.hu3diger.repository.BookImageLinksRepository;
+import br.inf.hu3diger.repository.BookInformationRepository;
 import br.inf.hu3diger.repository.BookRepository;
 
 @Service
@@ -26,12 +28,24 @@ public class BookService implements IBookService{
 	private static final String GOOGLE_BOOKS_URL = "https://www.googleapis.com/books/v1/volumes";
 	
 	@Autowired
-	private BookRepository repository;
+	private BookRepository bookRepository;
+	
+	@Autowired
+	private BookInformationRepository infoRepository;
+	
+	@Autowired
+	private BookImageLinksRepository imageRepository;
 
 	@Override
 	public List<Book> findAll() {
-		List<Book> books = (List<Book>) repository.findAll();
+		List<Book> books = (List<Book>) bookRepository.findAll();
 		return books;
+	}
+	
+	public Book save(Book book) {
+		book.getInformations().setImages(imageRepository.save(book.getInformations().getImages()));
+		book.setInformations(infoRepository.save(book.getInformations()));
+		return bookRepository.save(book);
 	}
 	
 	public static List<Book> search(String param){
@@ -58,6 +72,4 @@ public class BookService implements IBookService{
 		return readValues.getBooks();
 	}
 	
-	
-
 }

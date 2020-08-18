@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,9 +30,10 @@ public class BookController {
 		return String.format("All books that we have favored");
 	}
 	
-	@GetMapping("/{id}/favor")
-	public String favor(@PathVariable int id) {
-		return String.format("We will favor the book with id " + id + "<br> Remember to change to POST");
+	@PostMapping("/favor")
+	public Book favor(@RequestBody Book book) {
+		BookService service = new BookService();
+		return service.save(book);
 	}
 	
 	@GetMapping("/{id}/delete")

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service'
 import { Book } from '../../model/book';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -13,16 +14,18 @@ export class HomeComponent implements OnInit {
   loading: Boolean;
   searchWord: String = '';
 
-  constructor(private service : ApiService) { }
+  constructor(
+    private service : ApiService,
+    private logger: ToastrService
+  ) { }
 
   ngOnInit(): void {
-    console.log("init");
     this.loading = false;
   }
 
   public search() {
     if(this.searchWord == ''){
-      alert("Fill with a word");
+      this.logger.warning("You must enter a keyword to search a book", "Attention!")
     } else {
       this.loading = true;
       this.books = [];
@@ -40,6 +43,9 @@ export class HomeComponent implements OnInit {
 
   public favor(book: Book) {
     book.volumeInfo.flagFav = 1;
+    this.service.favor(book).subscribe((book: Book) => {
+      this.logger.success("Book" + book.volumeInfo.title + " favored!")
+    })
   }
 
 }

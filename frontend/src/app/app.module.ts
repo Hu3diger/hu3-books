@@ -10,6 +10,7 @@ import { AboutComponent } from './components/about/about.component';
 import { ApiService } from './services/api.service';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     BrowserAnimationsModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-bottom-left',
+      preventDuplicates: true,
+      progressAnimation: 'decreasing',
+      easing: 'ease-in',
+    })
   ],
   providers: [
     ApiService
