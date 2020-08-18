@@ -12,6 +12,6 @@ export class ApiService {
 
   public search(arg: String): Observable<Book[]> {
     return this.http.get<Book[]>(this.SERVER_URL + "/book?search=" + arg);
-  } 
+  }
   
 }

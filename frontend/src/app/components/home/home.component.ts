@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit {
 
   books: Book[];
   loading: Boolean;
+  searchWord: String = '';
 
   constructor(private service : ApiService) { }
 
@@ -20,16 +21,25 @@ export class HomeComponent implements OnInit {
   }
 
   public search() {
-    this.loading = true
-    this.service.search("peaky blinders").subscribe((books: Book[]) => {
-      console.log(books);
-      this.books = books;
-      this.loading = false;
-    });
+    if(this.searchWord == ''){
+      alert("Fill with a word");
+    } else {
+      this.loading = true;
+      this.books = [];
+      this.service.search(this.searchWord).subscribe((books: Book[]) => {
+        console.log(books);
+        this.books = books;
+        this.loading = false;
+      });
+    }
   }
 
   public getImageSrc(book: Book): String{
     return book.volumeInfo.imageLinks != undefined ? book.volumeInfo.imageLinks.smallThumbnail : ''
+  }
+
+  public favor(book: Book) {
+    book.volumeInfo.flagFav = 1;
   }
 
 }
