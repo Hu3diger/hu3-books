@@ -1,6 +1,7 @@
 import { BookInformation } from './bookInformation';
 
 export class Book {
-    _id: String;
+    id: String;
+    _id: Number;
 	volumeInfo: BookInformation;
 }

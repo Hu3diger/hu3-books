@@ -2,6 +2,7 @@ package br.inf.hu3diger.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,9 +37,8 @@ public class Book {
 	private String bookId;
 	
 	@JsonProperty("volumeInfo")
-	@OneToOne
+	@OneToOne(cascade=CascadeType.PERSIST)
 	private BookInformation informations;
-	
 	
 	@Getter
 	@Setter

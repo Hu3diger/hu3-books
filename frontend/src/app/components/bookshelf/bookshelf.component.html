@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6 col-sm-8 offset-sm-2 offset-md-3">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" [(ngModel)]="searchWord" name="searchWord" placeholder="Type a book title">
+                <input type="text" class="form-control" [(ngModel)]="searchWord" name="searchWord" placeholder="Type a book title or description">
                 <div class="input-group-append">
                   <button class="btn btn-outline-success" (click)="search()" type="button">Search</button>
                 </div>
@@ -14,14 +14,14 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-    <div class="row" *ngIf="books != undefined && books.length > 0">
-        <ng-container *ngFor="let book of books">
+    <div class="row" *ngIf="filteredBooks != undefined && filteredBooks.length > 0">
+        <ng-container *ngFor="let book of filteredBooks">
             <div class="col-sm-12 col-md-4 col-lg-3 mb-3" >
                 <app-card [book]="book" (favored)="favor($event)"></app-card>
             </div>
         </ng-container>
     </div>
-    <div class="row" *ngIf="!loading && (books == undefined || books.length == 0)">
+    <div class="row" *ngIf="!loading && (filteredBooks == undefined || filteredBooks.length == 0)">
         <div class="col-12">
             <div class="alert alert-light text-center" role="alert">
                 No results found!

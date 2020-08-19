@@ -2,7 +2,11 @@ package br.inf.hu3diger.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +23,9 @@ import br.inf.hu3diger.service.BookService;
 @CrossOrigin(origins = "http://localhost:4200")
 public class BookController {
 	
+	@Autowired
+	private BookService service;
+	
 	@GetMapping()
 	public List<Book> search(@RequestParam(value = "search", defaultValue = "peaky blinders") String param) {
 		List<Book> listSearchedBooks = BookService.search(param);
@@ -26,19 +33,19 @@ public class BookController {
 	}
 	
 	@GetMapping("/all")
-	public String loadAll() {
-		return String.format("All books that we have favored");
+	public List<Book> loadAll() {
+		return service.findAll();
 	}
 	
 	@PostMapping("/favor")
 	public Book favor(@RequestBody Book book) {
-		BookService service = new BookService();
 		return service.save(book);
 	}
 	
-	@GetMapping("/{id}/delete")
-	public String disfavor(@PathVariable int id) {
-		return String.format("We will disfavor the book with id " + id + "<br> Remember to change to DELETE");
+	@DeleteMapping("/{id}/unfavor")
+	public ResponseEntity<Long> disfavor(@PathVariable String id) {
+		service.delete(Long.parseLong(id));
+		return new ResponseEntity<Long>(HttpStatus.OK);
 	}
 
 }

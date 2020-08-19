@@ -1,5 +1,7 @@
 package br.inf.hu3diger.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,13 +31,15 @@ public class BookInformation {
     private int id;
 	
 	@JsonProperty("title")
+	@Column(columnDefinition = "text")
 	private String title;
 	
 	@JsonProperty("description")
+	@Column(columnDefinition = "text")
 	private String description;
 	
 	@JsonProperty("imageLinks")
-	@OneToOne
+	@OneToOne(cascade=CascadeType.PERSIST)
 	private BookImageLinks images;
 	
 	@JsonProperty("infoLink")

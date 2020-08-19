@@ -1,0 +1,11 @@
+<div class="card">
+    <img src="{{ getImageSrc() }}" class="card-img-top img-fluid hu3Image">
+    <div class="card-body">
+        <h5 class="card-title text-truncate">{{ book.volumeInfo.title }}</h5>
+        <a href="{{ book.volumeInfo.infoLink }}" target="_blank" class="btn btn-success">Know more!</a>
+        <span style="cursor: pointer" (click)="favor()">
+            <i class="float-right mt-2 far fa-heart" *ngIf="book.volumeInfo.flagFav != 1 "></i>
+            <i class="float-right mt-2 fas fa-heart" *ngIf="book.volumeInfo.flagFav == 1"></i>
+        </span>
+    </div>
+</div>

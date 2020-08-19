@@ -17,5 +17,13 @@ export class ApiService {
   public favor(arg: Book): Observable<Book> {
     return this.http.post<Book>(this.SERVER_URL + "/book/favor", arg);
   }
+
+  public unFavor(arg: Number): Observable<Number> {
+    return this.http.delete<Number>(this.SERVER_URL + "/book/" + arg + "/unfavor");
+  }
+
+  public loadBookshelf(): Observable<Book[]> {
+    return this.http.get<Book[]>(this.SERVER_URL + "/book/all");
+  }
   
 }

@@ -30,7 +30,6 @@ export class HomeComponent implements OnInit {
       this.loading = true;
       this.books = [];
       this.service.search(this.searchWord).subscribe((books: Book[]) => {
-        console.log(books);
         this.books = books;
         this.loading = false;
       });
@@ -42,10 +41,18 @@ export class HomeComponent implements OnInit {
   }
 
   public favor(book: Book) {
-    book.volumeInfo.flagFav = 1;
-    this.service.favor(book).subscribe((book: Book) => {
-      this.logger.success("Book" + book.volumeInfo.title + " favored!")
-    })
+    book.volumeInfo.flagFav = book.volumeInfo.flagFav == 1 ? 0 : 1;
+
+    if (book.volumeInfo.flagFav == 1){
+      this.service.favor(book).subscribe((retBook: Book) => {
+        this.logger.success("Book " + book.volumeInfo.title + " favored!")
+            book._id = retBook._id;
+      })
+    } else {
+      this.service.unFavor(book._id).subscribe((status: Number) => {
+          this.logger.success("Book removed from the bookshelf!");
+      })
+    }
   }
 
 }
